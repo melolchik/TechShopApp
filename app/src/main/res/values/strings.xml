@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">TechShopApp</string>
+    <string name="navigation_item_main">Products</string>
+    <string name="navigation_item_fav">Favorites</string>
+    <string name="navigation_item_settings">Settings</string>
+</resources>
