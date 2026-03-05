@@ -3,14 +3,13 @@ package ru.melolchik.techshopapp.navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import ru.melolchik.techshopapp.products.model.Product
 
 
-fun NavGraphBuilder.homeScreenNavGraph(
+fun NavGraphBuilder.productScreenNavGraph(
     productsScreenContent : @Composable () -> Unit,
-    detailsScreenContent : @Composable (Product) -> Unit
+    detailsScreenContent : @Composable (String) -> Unit
 ) {
     navigation(
         startDestination = Screen.Products.route,
@@ -18,6 +17,20 @@ fun NavGraphBuilder.homeScreenNavGraph(
     ) {
         composable(Screen.Products.route) {
             productsScreenContent()
+        }
+
+        composable(
+            route = Screen.Details.route//,
+//           arguments = listOf(
+//               navArgument(Screen.KEY_PRODUCT){
+//                   type = FeedPost.NavigationType
+//               }
+//           )
+        ) { backStackEntry  ->
+//           val product = backStackEntry.arguments?.getParcelable<Product>(Screen.KEY_PRODUCT)
+//               ?: throw RuntimeException("Args is null")
+            val productId = backStackEntry.arguments?.getString(Screen.KEY_PRODUCT) ?: ""
+            detailsScreenContent(productId)
         }
 
         /*composable(

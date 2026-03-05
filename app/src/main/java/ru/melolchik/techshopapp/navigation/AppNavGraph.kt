@@ -10,8 +10,7 @@ import ru.melolchik.techshopapp.products.model.Product
 fun AppNavGraph (
     navHostController: NavHostController,
     splashScreenContent : @Composable () -> Unit,
-    mainScreenContent : @Composable () -> Unit,
-    detailsScreenContent : @Composable (Product) -> Unit
+    mainScreenContent : @Composable () -> Unit
 ){
     NavHost(
     navController = navHostController,
@@ -26,8 +25,6 @@ fun AppNavGraph (
             mainScreenContent()
         }
 
-        composable(Screen.Details.route) {
 
-        }
     }
 }

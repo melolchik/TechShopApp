@@ -1,7 +1,7 @@
 package ru.melolchik.techshopapp.settings.presentation
 
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.os.LocaleListCompat
+import android.app.LocaleManager
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,6 +17,7 @@ import ru.melolchik.techshopapp.datastore.usecase.ChangeThemeUseCase
 import ru.melolchik.techshopapp.datastore.usecase.ObserveLanguageUseCase
 import ru.melolchik.techshopapp.datastore.usecase.ObserveThemeUseCase
 import javax.inject.Inject
+
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
@@ -50,9 +51,13 @@ class SettingsViewModel @Inject constructor(
     fun onLanguageChange(language: LanguageParam) {
         viewModelScope.launch {
             changeLanguage(language)
-            AppCompatDelegate.setApplicationLocales(
-                LocaleListCompat.forLanguageTags(language.value)
-            )
+//            AppCompatDelegate.setApplicationLocales(
+//                LocaleListCompat.forLanguageTags(language.value)
+//            )
+           // val applicationContext = LocalContext.current
+//            mContext.getSystemService(
+//                LocaleManager::class.java
+//            ).setApplicationLocales(LocaleList(Locale.forLanguageTag("xx-YY")))
         }
     }
 }

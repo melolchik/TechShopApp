@@ -27,7 +27,7 @@ class NavigationState(val navHostController: NavHostController) {
     }
 
     fun navigateToDetails(product : Product){
-        navHostController.navigate(Screen.Details.getRouteWithArgs(product = product))// comments/15/
+        navHostController.navigate(Screen.Details.getRouteWithArgs(product = product))
     }
 }
 

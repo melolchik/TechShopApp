@@ -10,7 +10,7 @@ interface ProductsRepository {
 
     suspend fun getProductById(id: String): Product?
 
-    suspend fun toggleFavorite(id: String)
+    suspend fun toggleFavorite(product: Product)
 
     suspend fun syncProducts()
 }

@@ -8,11 +8,10 @@ import ru.melolchik.techshopapp.products.model.Product
 
 @Composable
 fun MainNavGraph(navHostController: NavHostController,
-                // splashScreenContent : @Composable (onFinished: () -> Unit ) -> Unit,
                  productsScreenContent : @Composable () -> Unit,
                  favoriteScreenContent : @Composable () -> Unit,
                  settingsScreenContent : @Composable ()-> Unit,
-                // detailsScreenContent : @Composable (Product) -> Unit
+                 detailsScreenContent : @Composable (String) -> Unit
 ){
     NavHost(
         navController = navHostController,
@@ -20,9 +19,9 @@ fun MainNavGraph(navHostController: NavHostController,
         ){
 
 
-//       homeScreenNavGraph(
-//           productsScreenContent = productsScreenContent,
-//           detailsScreenContent = detailsScreenContent)
+       productScreenNavGraph(
+           productsScreenContent = productsScreenContent,
+           detailsScreenContent = detailsScreenContent)
 
         composable(Screen.Products.route) {
             productsScreenContent()

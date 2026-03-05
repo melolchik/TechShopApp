@@ -1,13 +1,15 @@
 package ru.melolchik.techshopapp
 
+import android.app.LocaleManager
 import android.os.Bundle
-import android.util.Log
+import android.os.LocaleList
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import ru.melolchik.techshopapp.datastore.components.LanguageParam
@@ -18,28 +20,41 @@ import ru.melolchik.techshopapp.splash.presentation.SplashScreen
 import ru.melolchik.techshopapp.ui.MainScreen
 import ru.melolchik.techshopapp.ui.MainViewModel
 import ru.melolchik.techshopapp.ui.theme.TechShopAppTheme
+import java.util.Locale
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContent {
-            Content()
+            AppContent { languageParam ->
+                applyLanguage(languageParam)
+            }
         }
+    }
+
+    fun applyLanguage(language: LanguageParam) {
+        val langTag = language.value
+
+//    AppCompatDelegate.setApplicationLocales(
+//        LocaleListCompat.forLanguageTags(langTag)//    )
+
+        val localeManager =
+            ContextCompat.getSystemService<LocaleManager>(this, LocaleManager::class.java)
+        localeManager.applicationLocales = LocaleList(Locale.forLanguageTag(langTag))
     }
 }
 
 @Composable
-fun Content() {
+fun AppContent(onSettingsLanguageChanged: (LanguageParam) -> Unit) {
+
     val viewModel: MainViewModel = hiltViewModel()
+    val themeParam by viewModel.themeState.collectAsState(ThemeParam.LIGHT)
+    TechShopAppTheme(darkTheme = themeParam == ThemeParam.DARK) {
 
-    val theme = viewModel.themeState.collectAsState(ThemeParam.LIGHT)
-    val language = viewModel.languageState.collectAsState(LanguageParam.RU)
 
-    ApplyLanguage(language.value)
-
-    TechShopAppTheme(darkTheme = theme.value == ThemeParam.DARK) {
         val navigationState = rememberNavigateState()
         AppNavGraph(
             navHostController = navigationState.navHostController,
@@ -49,36 +64,11 @@ fun Content() {
                 }
             },
             mainScreenContent = {
-                MainScreen()
-            },
-            detailsScreenContent = {
-                Text(text = "Details")
+                MainScreen(onSettingsLanguageChanged)
             })
 
     }
 }
 
-@Composable
-fun ApplyLanguage(language: LanguageParam) {
 
-    Log.d("COMPOSE_TEST", "ApplyLanguage $language")
 
-//    val applicationContext = LocalContext.current
-//    var prevLang by rememberSaveable {
-//        mutableStateOf("")
-//    }
-
-//    LaunchedEffect(key1 = prevLang, key2 = language.value) {
-//        prevLang = language.value
-
-    //SideEffect {
-//        AppCompatDelegate.setApplicationLocales(
-//            LocaleListCompat.forLanguageTags(language.value)
-//        )
-    //}
-
-    //   }
-
-    // Update the activity's context with the new locale
-
-}

@@ -1,5 +1,6 @@
 package ru.melolchik.techshopapp.products.model
 
+//@Parcelize
 data class Product(
     val id: String,
     val model: String,
@@ -10,4 +11,4 @@ data class Product(
     val imageUrl: String,
     val editedAt: Long,
     val isFavorite: Boolean = false
-)
+)// : Parselable

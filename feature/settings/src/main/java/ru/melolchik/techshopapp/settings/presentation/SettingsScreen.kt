@@ -3,14 +3,11 @@ package ru.melolchik.techshopapp.settings.presentation
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -22,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import ru.melolchik.techshopapp.datastore.components.LanguageParam
 import ru.melolchik.techshopapp.settings.R
 import ru.melolchik.techshopapp.settings.presentation.component.LanguageDropdown
 import ru.melolchik.techshopapp.settings.presentation.component.ThemeDropdown
@@ -29,7 +27,8 @@ import ru.melolchik.techshopapp.settings.presentation.component.ThemeDropdown
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
+    onSettingsLanguageChanged: (LanguageParam) -> Unit
 ) {
     val viewModel: SettingsViewModel = hiltViewModel()
     val state by viewModel.state.collectAsState()
@@ -69,7 +68,10 @@ fun SettingsScreen(
 
             LanguageDropdown(
                 selected = state.language,
-                onSelected = viewModel::onLanguageChange
+                onSelected = {
+                    viewModel.onLanguageChange(it)
+                    onSettingsLanguageChanged(it)
+                }
             )
         }
     }

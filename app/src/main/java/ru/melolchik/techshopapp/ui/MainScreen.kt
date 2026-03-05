@@ -24,6 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import ru.melolchik.techshopapp.MainActivity
+import ru.melolchik.techshopapp.datastore.components.LanguageParam
+import ru.melolchik.techshopapp.details.presentation.DetailsScreen
 import ru.melolchik.techshopapp.favorites.presentation.FavoritesScreen
 import ru.melolchik.techshopapp.navigation.MainNavGraph
 import ru.melolchik.techshopapp.navigation.NavigationItem
@@ -39,7 +41,7 @@ fun log(text: String) {
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
-fun MainScreen() {
+fun MainScreen(onSettingsLanguageChanged: (LanguageParam) -> Unit) {
 
     val navigationState = rememberNavigateState()
 
@@ -64,7 +66,13 @@ fun MainScreen() {
                 }
             },
             settingsScreenContent = {
-                SettingsScreen(paddingValues = paddingValues)
+                SettingsScreen(paddingValues = paddingValues,onSettingsLanguageChanged)
+            },
+            detailsScreenContent = { productId ->
+                DetailsScreen(productId = productId, onBackClick = {
+                    navigationState.navHostController.popBackStack()
+                })
+
             })
     }
 }

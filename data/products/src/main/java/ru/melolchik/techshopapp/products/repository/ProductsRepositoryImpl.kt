@@ -30,9 +30,8 @@ class ProductsRepositoryImpl @Inject constructor(
         return dao.getProductById(id)?.toDomain()
     }
 
-    override suspend fun toggleFavorite(id: String) {
-        val product = dao.getProductById(id) ?: return
-        dao.updateFavorite(id, !product.isFavorite)
+    override suspend fun toggleFavorite(product: Product) {
+         dao.updateFavorite(product.id, !product.isFavorite)
     }
 
     override suspend fun syncProducts() {

@@ -44,9 +44,6 @@ android {
         compose = true
     }
 
-//    androidResources {
-//        generateLocaleConfig = true
-//    }
 }
 
 dependencies {
@@ -65,6 +62,7 @@ dependencies {
     implementation(project(":feature:products"))
     implementation(project(":feature:favorites"))
     implementation(project(":feature:settings"))
+    implementation(project(":feature:details"))
 
     // Hilt
     implementation(libs.hilt)
