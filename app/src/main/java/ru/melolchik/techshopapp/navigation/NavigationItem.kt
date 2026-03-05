@@ -10,22 +10,22 @@ import ru.melolchik.techshopapp.R
 
 sealed class NavigationItem(
     val screen: Screen,
-    //val titleResId : Int,
+    val titleResId : Int,
     val icon: ImageVector
 ){
     object Home : NavigationItem(
         Screen.Products,
-       // ru.melolchik.techshopapp.R.string.navigation_item_main,
+        ru.melolchik.techshopapp.R.string.navigation_item_main,
         Icons.Outlined.Home
     )
     object Favorite : NavigationItem (
         Screen.Favorite,
-        //R.string.navigation_item_fav,
+        R.string.navigation_item_fav,
         Icons.Outlined.Favorite
     )
     object Profile : NavigationItem (
         Screen.Settings,
-        //R.string.navigation_item_profile,
+        R.string.navigation_item_settings,
         Icons.Outlined.Settings
     )
 }

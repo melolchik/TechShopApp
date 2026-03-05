@@ -43,6 +43,10 @@ android {
     buildFeatures {
         compose = true
     }
+
+//    androidResources {
+//        generateLocaleConfig = true
+//    }
 }
 
 dependencies {
@@ -53,11 +57,19 @@ dependencies {
     implementation(project(":domain:products"))
     implementation(project(":data:products"))
 
+    implementation(project(":domain:datastore"))
+    implementation(project(":data:datastore"))
+
+    implementation(project(":core:ui"))
     implementation(project(":feature:splash"))
     implementation(project(":feature:products"))
     implementation(project(":feature:favorites"))
+    implementation(project(":feature:settings"))
+
     // Hilt
     implementation(libs.hilt)
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.appcompat)
     kapt(libs.hilt.dagger.compiler)
     implementation(libs.hilt.navigation.compose)
     kapt(libs.hilt.androidx.compiler)
@@ -68,6 +80,11 @@ dependencies {
 
     //Gson
     implementation(libs.google.gson)
+
+    // Lifecycle
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

@@ -18,14 +18,20 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
+import ru.melolchik.techshopapp.MainActivity
 import ru.melolchik.techshopapp.favorites.presentation.FavoritesScreen
 import ru.melolchik.techshopapp.navigation.MainNavGraph
 import ru.melolchik.techshopapp.navigation.NavigationItem
+import ru.melolchik.techshopapp.navigation.NavigationState
 import ru.melolchik.techshopapp.navigation.rememberNavigateState
 import ru.melolchik.techshopapp.products.presentation.ProductsScreen
+import ru.melolchik.techshopapp.settings.presentation.SettingsScreen
+import ru.melolchik.techshopapp.ui.theme.TechShopAppTheme
 
 fun log(text: String) {
     Log.d("COMPOSE_TEST", text)
@@ -39,40 +45,7 @@ fun MainScreen() {
 
     Scaffold(
         bottomBar = {
-            NavigationBar {
-                val items =
-                    listOf(NavigationItem.Home, NavigationItem.Favorite, NavigationItem.Profile)
-                val navBackStackEntry by navigationState.navHostController.currentBackStackEntryAsState()
-
-                items.forEachIndexed { index, item ->
-
-                    val selected = navBackStackEntry?.destination?.hierarchy?.any {
-                        it.route == item.screen.route
-                    } ?: false
-
-                    NavigationBarItem(
-                        selected = selected,
-                        onClick = {
-                            if(!selected) {
-                                navigationState.navigateTo(item.screen.route)
-                            }
-                        },
-                        icon = {
-                            Icon(imageVector = item.icon, contentDescription = null)
-                        },
-                        label = {
-                            //Text(text = stringResource(id = R.string.navigation_item_main))
-                            Text(text = "Name")
-                        },
-                        colors = NavigationBarItemDefaults.colors(
-                            selectedIconColor = MaterialTheme.colorScheme.onPrimary,
-                            selectedTextColor = MaterialTheme.colorScheme.onPrimary,
-                            unselectedIconColor = MaterialTheme.colorScheme.onSecondary,
-                            unselectedTextColor = MaterialTheme.colorScheme.onSecondary
-                        )
-                    )
-                }
-            }
+            BottomBar(navigationState = navigationState)
         }
 
     ) { paddingValues ->
@@ -91,7 +64,7 @@ fun MainScreen() {
                 }
             },
             settingsScreenContent = {
-                TextCounter(text = "Settings")
+                SettingsScreen(paddingValues = paddingValues)
             })
     }
 }
@@ -108,4 +81,60 @@ fun TextCounter(text: String) {
         text = "Name = $text count = $count",
         color = MaterialTheme.colorScheme.onPrimary
     )
+}
+
+@Composable
+fun BottomBar(navigationState: NavigationState = rememberNavigateState()){
+    NavigationBar(
+        containerColor = MaterialTheme.colorScheme.primary
+    ) {
+        val items =
+            listOf(NavigationItem.Home, NavigationItem.Favorite, NavigationItem.Profile)
+        val navBackStackEntry by navigationState.navHostController.currentBackStackEntryAsState()
+
+        items.forEachIndexed { index, item ->
+
+            val selected = navBackStackEntry?.destination?.hierarchy?.any {
+                it.route == item.screen.route
+            } ?: false
+
+            NavigationBarItem(
+                selected = selected,
+                onClick = {
+                    if(!selected) {
+                        navigationState.navigateTo(item.screen.route)
+                    }
+                },
+                icon = {
+                    Icon(imageVector = item.icon, contentDescription = null)
+                },
+                label = {
+                    Text(text = stringResource(id = item.titleResId))
+
+                },
+                colors = NavigationBarItemDefaults.colors(
+                    selectedIconColor = MaterialTheme.colorScheme.primary,
+                    selectedTextColor = MaterialTheme.colorScheme.onPrimary,
+                    unselectedIconColor = MaterialTheme.colorScheme.onSecondary,
+                    unselectedTextColor = MaterialTheme.colorScheme.onSecondary
+                )
+            )
+        }
+    }
+}
+
+@Preview
+@Composable
+fun MainScreenPreviewDark(){
+    TechShopAppTheme(true) {
+        BottomBar()
+    }
+}
+
+@Preview
+@Composable
+fun MainScreenPreviewLight(){
+    TechShopAppTheme(false) {
+        BottomBar()
+    }
 }

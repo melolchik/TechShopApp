@@ -19,6 +19,7 @@ fun NavGraphBuilder.homeScreenNavGraph(
         composable(Screen.Products.route) {
             productsScreenContent()
         }
+
         /*composable(
             route = Screen.Details.route,
             arguments = listOf(

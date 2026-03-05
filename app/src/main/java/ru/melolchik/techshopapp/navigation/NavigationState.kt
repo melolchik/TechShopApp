@@ -11,7 +11,9 @@ class NavigationState(val navHostController: NavHostController) {
 
     fun navigateToHome(){
         navHostController.navigate(Screen.Home.route){
-            launchSingleTop = true
+            popUpTo(Screen.Splash.route) {
+                inclusive = true
+            }
         }
     }
     fun navigateTo(route : String){

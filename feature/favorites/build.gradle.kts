@@ -54,6 +54,8 @@ dependencies {
 
     // Domain
     implementation(project(":domain:products"))
+
+    implementation(project(":core:ui"))
 	
 // Hilt
     implementation(libs.hilt)

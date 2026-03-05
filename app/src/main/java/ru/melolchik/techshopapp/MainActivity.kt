@@ -1,64 +1,84 @@
 package ru.melolchik.techshopapp
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
+import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.collectAsState
+import androidx.hilt.navigation.compose.hiltViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import ru.melolchik.techshopapp.datastore.components.LanguageParam
+import ru.melolchik.techshopapp.datastore.components.ThemeParam
 import ru.melolchik.techshopapp.navigation.AppNavGraph
 import ru.melolchik.techshopapp.navigation.rememberNavigateState
 import ru.melolchik.techshopapp.splash.presentation.SplashScreen
 import ru.melolchik.techshopapp.ui.MainScreen
+import ru.melolchik.techshopapp.ui.MainViewModel
 import ru.melolchik.techshopapp.ui.theme.TechShopAppTheme
+
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            TechShopAppTheme {
-                val navigationState = rememberNavigateState()
-                AppNavGraph(navHostController = navigationState.navHostController,
-                    splashScreenContent = {
-                        SplashScreen{
-                            navigationState.navigateToHome()
-                        }
-                    },
-                    mainScreenContent = {
-                        MainScreen()
-                    } ,
-                    detailsScreenContent = {
-                        Text(text = "Details")
-                    })
-
-            }
+            Content()
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Column(modifier = Modifier.fillMaxSize()){
+fun Content() {
+    val viewModel: MainViewModel = hiltViewModel()
+
+    val theme = viewModel.themeState.collectAsState(ThemeParam.LIGHT)
+    val language = viewModel.languageState.collectAsState(LanguageParam.RU)
+
+    ApplyLanguage(language.value)
+
+    TechShopAppTheme(darkTheme = theme.value == ThemeParam.DARK) {
+        val navigationState = rememberNavigateState()
+        AppNavGraph(
+            navHostController = navigationState.navHostController,
+            splashScreenContent = {
+                SplashScreen {
+                    navigationState.navigateToHome()
+                }
+            },
+            mainScreenContent = {
+                MainScreen()
+            },
+            detailsScreenContent = {
+                Text(text = "Details")
+            })
 
     }
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
 }
 
-@Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    TechShopAppTheme {
-        Greeting("Android")
-    }
+fun ApplyLanguage(language: LanguageParam) {
+
+    Log.d("COMPOSE_TEST", "ApplyLanguage $language")
+
+//    val applicationContext = LocalContext.current
+//    var prevLang by rememberSaveable {
+//        mutableStateOf("")
+//    }
+
+//    LaunchedEffect(key1 = prevLang, key2 = language.value) {
+//        prevLang = language.value
+
+    //SideEffect {
+//        AppCompatDelegate.setApplicationLocales(
+//            LocaleListCompat.forLanguageTags(language.value)
+//        )
+    //}
+
+    //   }
+
+    // Update the activity's context with the new locale
+
 }
