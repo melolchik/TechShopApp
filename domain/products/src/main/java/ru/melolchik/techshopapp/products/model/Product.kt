@@ -11,4 +11,21 @@ data class Product(
     val imageUrl: String,
     val editedAt: Long,
     val isFavorite: Boolean = false
-)// : Parselable
+){
+
+    companion object{
+        val Test = Product(
+            id = "1",
+            model = "Model",
+            description = "Description",
+            features = "Features",
+            categories = "Categories",
+            price = 100.0,
+            imageUrl = "https://picsum.photos/200/300",
+            editedAt = System.currentTimeMillis()
+        )
+
+    }
+
+}
+

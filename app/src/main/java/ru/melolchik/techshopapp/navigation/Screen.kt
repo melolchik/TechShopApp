@@ -16,11 +16,6 @@ sealed class Screen(val route: String) {
 
         private const val ROUTE_FOR_ARGS = "details"
 
-        //        fun getRouteWithArgs(product: Product) : String {
-//
-//            val productJson = Gson().toJson(product)
-//            return "$ROUTE_FOR_ARGS/${productJson.encode()}"
-//        }
         fun getRouteWithArgs(product: Product): String {
 
             return "$ROUTE_FOR_ARGS/${product.id}"
@@ -29,11 +24,11 @@ sealed class Screen(val route: String) {
 
 
     companion object {
-        const val KEY_PRODUCT = "product"
+        const val KEY_PRODUCT_ID = "product_id"
 
         const val ROUTE_SPLASH = "splash"
         const val ROUTE_HOME = "home"
-        const val ROUTE_DETAILS_WITH_ARGS = "details/{$KEY_PRODUCT}"
+        const val ROUTE_DETAILS_WITH_ARGS = "details/{$KEY_PRODUCT_ID}"
         const val ROUTE_PRODUCTS = "products"
         const val ROUTE_FAVORITE = "favorite"
         const val ROUTE_SETTINGS = "settings"

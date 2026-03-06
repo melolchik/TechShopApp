@@ -1,5 +1,6 @@
 package ru.melolchik.techshopapp.details.presentation
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -46,7 +47,6 @@ fun DetailsScreen(
         }
     ) { padding ->
 
-        Text(text = "ProductId = $productId")
         when (state) {
             is DetailsState.Initial,
             DetailsState.Loading -> {
@@ -77,7 +77,9 @@ fun DetailsScreen(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    Text(product.model, style = MaterialTheme.typography.headlineMedium)
+                    Text(product.model,
+                        style = MaterialTheme.typography.headlineMedium,
+                        color = MaterialTheme.colorScheme.primary)
 
                     Spacer(modifier = Modifier.height(8.dp))
 
@@ -95,8 +97,10 @@ fun DetailsScreen(
                         onClick = { viewModel.onFavoriteClick() },
                         modifier = Modifier.fillMaxWidth()
                     ) {
+                        val isFav = product.isFavorite
+                        Log.d("DetailsScreen", "isFav = $isFav")
                         Text(
-                            if (product.isFavorite)
+                            if (isFav)
                                 "Удалить из избранного"
                             else
                                 "Добавить в избранное"

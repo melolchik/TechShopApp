@@ -1,7 +1,7 @@
 package ru.melolchik.techshopapp.details.presentation
 
 import android.util.Log
-import ru.melolchik.techshopapp.details.domain.usecase.ToggleFavoriteUseCase
+import ru.melolchik.techshopapp.products.usecase.ToggleFavoriteUseCase
 import ru.melolchik.techshopapp.products.model.Product
 
 import androidx.lifecycle.ViewModel

@@ -10,18 +10,12 @@ import ru.melolchik.techshopapp.products.model.Product
 fun MainNavGraph(navHostController: NavHostController,
                  productsScreenContent : @Composable () -> Unit,
                  favoriteScreenContent : @Composable () -> Unit,
-                 settingsScreenContent : @Composable ()-> Unit,
-                 detailsScreenContent : @Composable (String) -> Unit
+                 settingsScreenContent : @Composable ()-> Unit
 ){
     NavHost(
         navController = navHostController,
         startDestination = Screen.Products.route
         ){
-
-
-       productScreenNavGraph(
-           productsScreenContent = productsScreenContent,
-           detailsScreenContent = detailsScreenContent)
 
         composable(Screen.Products.route) {
             productsScreenContent()

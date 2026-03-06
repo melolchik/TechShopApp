@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,6 +20,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import ru.melolchik.techshopapp.products.R
 import ru.melolchik.techshopapp.products.model.Product
 import ru.melolchik.techshopapp.ui.components.EmptyScreen
+import ru.melolchik.techshopapp.ui.components.ProductList
 import ru.melolchik.techshopapp.ui.components.ProgressScreen
 
 @Composable
@@ -35,21 +37,28 @@ fun ProductsScreen(
         is ProductsState.Result -> {
             val result = state as ProductsState.Result
 
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(paddingValues = paddingValues)
-                ) {
-                    SearchItem(result.searchQuery, viewModel::onSearchChange)
-                    if (result.items.isEmpty()) {
-                        EmptyScreen(
-                            paddingValues = paddingValues,
-                            text = stringResource(R.string.products_list_is_empty)
-                        )
-                    }else {
-                        ItemList(result.items, onProductClick)
-                    }
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues = paddingValues)
+            ) {
+                SearchItem(result.searchQuery, viewModel::onSearchChange)
+                if (result.items.isEmpty()) {
+                    EmptyScreen(
+                        paddingValues = paddingValues,
+                        text = stringResource(R.string.products_list_is_empty)
+                    )
+                } else {
+                    ProductList(
+                        modifier = Modifier,
+                        result.items,
+                        onProductClick,
+                        onLikeClick = {
+                            viewModel.toggleFavorite(product = it)
+                        }
+                    )
                 }
+            }
         }
 
         else -> {
@@ -70,19 +79,4 @@ fun SearchItem(searchQuery: String, onValueChange: (String) -> Unit) {
             .padding(16.dp),
         label = { Text(stringResource(R.string.hint_search)) }
     )
-}
-
-@Composable
-fun ItemList(list: List<Product>, onProductClick: (Product) -> Unit) {
-    LazyColumn(
-        modifier = Modifier.padding(horizontal = 16.dp)
-    ) {
-
-        items(list, key = { it.id }) { product ->
-            ProductItem(
-                product = product,
-                onClick = { onProductClick(product) }
-            )
-        }
-    }
 }

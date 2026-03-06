@@ -6,12 +6,13 @@ import ru.melolchik.techshopapp.products.model.Product
 fun ProductEntity.toDomain(): Product {
     return Product(
         id = id,
-       model = model,
-       description = description,
-       features = features,
-       categories = categories,
-       price = price,
-       imageUrl = imageUrl,
-       editedAt = editedAt
+        model = model,
+        description = description,
+        features = features,
+        categories = categories,
+        price = price,
+        imageUrl = imageUrl,
+        editedAt = editedAt,
+        isFavorite = isFavorite
     )
 }

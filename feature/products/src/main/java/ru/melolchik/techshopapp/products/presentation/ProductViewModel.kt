@@ -11,14 +11,17 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import ru.melolchik.techshopapp.products.domain.usecase.GetProductsUseCase
 import ru.melolchik.techshopapp.products.domain.usecase.SearchProductsUseCase
+import ru.melolchik.techshopapp.products.model.Product
 import ru.melolchik.techshopapp.products.usecase.SyncProductsUseCase
+import ru.melolchik.techshopapp.products.usecase.ToggleFavoriteUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class ProductsViewModel @Inject constructor(
     getProductsUseCase: GetProductsUseCase,
     private val searchProductsUseCase: SearchProductsUseCase,
-    private val syncProductsUseCase: SyncProductsUseCase
+    private val syncProductsUseCase: SyncProductsUseCase,
+    private val toggleFavoriteUseCase: ToggleFavoriteUseCase
 ) : ViewModel() {
 
     private val searchQuery = MutableStateFlow("")
@@ -50,5 +53,12 @@ class ProductsViewModel @Inject constructor(
         viewModelScope.launch {
             syncProductsUseCase()
         }
+    }
+
+    fun toggleFavorite(product : Product){
+        viewModelScope.launch {
+            toggleFavoriteUseCase(product = product)
+        }
+
     }
 }
