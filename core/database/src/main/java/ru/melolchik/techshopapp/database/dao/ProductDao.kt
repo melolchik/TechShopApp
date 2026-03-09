@@ -18,7 +18,7 @@ interface ProductDao {
     fun getFavoriteProducts(): Flow<List<ProductEntity>>
 
     @Query("SELECT * FROM products WHERE id = :id")
-    suspend fun getProductById(id: String): ProductEntity?
+    fun observeProductById(id: String): Flow<ProductEntity?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(products: List<ProductEntity>)

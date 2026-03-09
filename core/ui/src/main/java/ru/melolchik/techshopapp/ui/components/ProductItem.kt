@@ -42,19 +42,29 @@ fun ProductItem(
             .fillMaxWidth()
             .padding(bottom = 12.dp)
     ) {
-        Column(Modifier.fillMaxSize().padding(16.dp)) {
-            Row(Modifier.fillMaxSize(),
-                verticalAlignment = Alignment.CenterVertically ) {
-                Text(modifier = Modifier.weight(weight = 0.4f),
+        Column(
+            Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        ) {
+            Row(
+                Modifier.fillMaxSize(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    modifier = Modifier.weight(weight = 0.4f),
                     text = product.model,
                     maxLines = 2,
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.primary
                 )
                 Spacer(modifier = Modifier.weight(weight = 0.5f))
-                LikeButton(modifier = Modifier.wrapContentSize()
-                    .weight(weight = 0.1f),
-                    isFavorite = product.isFavorite) {
+                LikeButton(
+                    modifier = Modifier
+                        .wrapContentSize()
+                        .weight(weight = 0.1f),
+                    isFavorite = product.isFavorite
+                ) {
                     onLikeClick(product)
                 }
             }
@@ -67,13 +77,14 @@ fun ProductItem(
 
 @Preview
 @Composable
-fun ProductItemPreview(){
+fun ProductItemPreview() {
 
     TechShopAppTheme {
-        ProductItem(product = Product.Test , onClick = {}) { }
+        ProductItem(product = Product.Test, onClick = {}) { }
     }
 
 }
+
 @Composable
 fun LikeButton(
     modifier: Modifier,
@@ -81,17 +92,20 @@ fun LikeButton(
     onClick: () -> Unit
 ) {
 
-    Box(modifier = modifier
-        //.padding(16.dp)
-        .clickable(){
-        onClick()
-    }) {
-        Icon(
+//    Box(
+//        modifier = modifier
+//            //.padding(16.dp)
+//            .clickable() {
+//                onClick()
+//            }) {
+    Icon(
+        modifier = modifier
+            .clickable(onClick = onClick),
 
-            imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary
-        )
-    }
+        imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+        contentDescription = null,
+        tint = MaterialTheme.colorScheme.primary
+    )
+    //  }
 }
 

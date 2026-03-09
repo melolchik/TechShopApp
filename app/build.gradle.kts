@@ -94,6 +94,7 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.material.icons)
+    //implementation(libs.androidx.compose.animation.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

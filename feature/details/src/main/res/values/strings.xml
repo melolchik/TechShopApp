@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tag_categories">Categories:</string>
+    <string name="tag_price">Price:</string>
+    <string name="tag_update_date">Updated:</string>
+    <string name="button_remove_favorites">Remove from favorites</string>
+    <string name="button_add_favorites">Add to favorites</string>
+    <string name="details_title">Details</string>
+</resources>

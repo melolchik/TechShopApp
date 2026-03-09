@@ -16,6 +16,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import androidx.compose.material3.Icon
+import androidx.compose.ui.res.stringResource
+import ru.melolchik.techshopapp.details.R
 import ru.melolchik.techshopapp.ui.components.EmptyScreen
 import ru.melolchik.techshopapp.ui.components.ProgressScreen
 
@@ -36,7 +38,7 @@ fun DetailsScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Детали") },
+                title = { Text(stringResource(R.string.details_title)) },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = null)
@@ -87,9 +89,9 @@ fun DetailsScreen(
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    Text("Категория: ${product.categories}")
-                    Text("Цена: ${product.price} ₽")
-                    Text("Обновлено: ${product.editedAt}")
+                    Text(stringResource(R.string.tag_categories) + product.categories)
+                    Text(stringResource(R.string.tag_price) + "${product.price}");
+                    Text(stringResource(R.string.tag_update_date) + "${product.editedAt}")
 
                     Spacer(modifier = Modifier.height(16.dp))
 
@@ -101,9 +103,9 @@ fun DetailsScreen(
                         Log.d("DetailsScreen", "isFav = $isFav")
                         Text(
                             if (isFav)
-                                "Удалить из избранного"
+                                stringResource(R.string.button_remove_favorites)
                             else
-                                "Добавить в избранное"
+                                stringResource(R.string.button_add_favorites)
                         )
                     }
                 }

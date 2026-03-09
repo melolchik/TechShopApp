@@ -42,7 +42,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.compose.animation.core)
+    //implementation(libs.androidx.compose.animation.core)
     implementation(libs.androidx.material3)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -64,6 +64,7 @@ dependencies {
     //Compose
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.material.icons)
 
     //WorkManager
     implementation(libs.work.runtime.ktx)

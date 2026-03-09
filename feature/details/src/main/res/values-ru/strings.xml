@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tag_categories">Категории:</string>
+    <string name="tag_price">Цена:</string>
+    <string name="tag_update_date">Обновлено:</string>
+    <string name="button_remove_favorites">Удалить из избранного</string>
+
+    <string name="button_add_favorites">Добавить в избранне</string>
+    <string name="details_title">Детали</string>
+</resources>

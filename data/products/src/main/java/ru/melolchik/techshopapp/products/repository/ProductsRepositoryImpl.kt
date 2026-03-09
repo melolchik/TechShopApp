@@ -26,8 +26,8 @@ class ProductsRepositoryImpl @Inject constructor(
             .map { list -> list.map { it.toDomain() } }
     }
 
-    override suspend fun getProductById(id: String): Product? {
-        return dao.getProductById(id)?.toDomain()
+    override fun observeProductById(id: String): Flow<Product?> {
+        return dao.observeProductById(id).map { it?.toDomain()}
     }
 
     override suspend fun toggleFavorite(product: Product) {
