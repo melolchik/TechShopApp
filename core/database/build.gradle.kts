@@ -38,12 +38,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 
     // Room
     implementation(libs.room.runtime)
@@ -56,4 +50,11 @@ dependencies {
 
     // Для @ApplicationContext
     implementation("androidx.hilt:hilt-common:1.2.0")
+
+
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+
+
 }

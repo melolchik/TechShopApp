@@ -56,7 +56,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
 	// Domain
-	implementation(project(":domain:products"))
+	api(project(":domain:products"))
 
     implementation(project(":core:ui"))
     // Hilt

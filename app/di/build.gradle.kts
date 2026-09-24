@@ -1,12 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.jetbrains.kotlin.kapt)
-    alias(libs.plugins.dagger.hilt.android)
 }
 
 android {
-    namespace = "ru.melolchik.techshopapp"
+    namespace = "ru.melolchik.techshopapp.di"
     compileSdk = 36
 
     defaultConfig {
@@ -15,16 +13,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -32,16 +20,14 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
 }
 
 dependencies {
-    // Hilt
-    implementation(libs.hilt)
-    kapt(libs.hilt.dagger.compiler)
-
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.material)
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-
+    androidTestImplementation(libs.androidx.junit)
 }

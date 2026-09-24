@@ -41,7 +41,7 @@ android {
 dependencies {
 
     // Domain
-    implementation(project(":domain:datastore"))
+    api(project(":domain:datastore"))
 
     implementation(project(":core:ui"))
     // Hilt

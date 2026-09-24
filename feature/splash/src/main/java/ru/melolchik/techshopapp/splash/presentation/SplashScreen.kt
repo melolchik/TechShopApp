@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.autofill.ContentDataType.Companion.Text
@@ -42,7 +43,22 @@ fun SplashScreen(
 
     val isFinished by viewModel.isFinished.collectAsStateWithLifecycle()
 
+    val infiniteTransition = rememberInfiniteTransition(label = "splash")
 
+    val scale by infiniteTransition.animateFloat(
+        initialValue = 1f,
+        targetValue = 1.5f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(10000, easing = LinearEasing),
+            repeatMode = RepeatMode.Reverse
+        )
+    )
+    LaunchedEffect(Unit) {
+        snapshotFlow { scale }
+            .collect {
+                Log.d("SPLASH", "scale = $it")
+            }
+    }
 
     LaunchedEffect(Unit) {
         viewModel.startSync()
@@ -61,16 +77,8 @@ fun SplashScreen(
         contentAlignment = Alignment.Center
     ) {
 
-        val infiniteTransition = rememberInfiniteTransition(label = "splash")
 
-        val scale by infiniteTransition.animateFloat(
-            initialValue = 1f,
-            targetValue = 1.5f,
-            animationSpec = infiniteRepeatable(
-                animation = tween(10000, easing = LinearEasing),
-                repeatMode = RepeatMode.Reverse
-            )
-        )
+
 
         Log.d("TAG", "SplashScreen: $scale")
         //AnimatedBox(scale)
